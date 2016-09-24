@@ -25,6 +25,11 @@ public class FindAndReplace {
 			System.out.println(paramAnalyzer.getHelp());
 			throw new ParameterException();
 		}
+		
+		System.out.println(paramAnalyzer.getFindText());
+		System.out.println(paramAnalyzer.getReplaceText());
+		System.out.println(paramAnalyzer.getNameFileTextSearch());
+		System.out.println(paramAnalyzer.getFindPath());
 	}
 
 	public boolean paramAnalysis() {
@@ -36,7 +41,7 @@ public class FindAndReplace {
 		}
 	}
 
-	public void doFindAndReplace() {
+	public void doFindAndReplace() { /*
 		File[] listToProcess = null;
 		try {
 			listToProcess = filesUtils.getFiles(paramAnalyzer);
@@ -63,6 +68,6 @@ public class FindAndReplace {
 			if (respuesta != null && respuesta.getCantidadReemplazos() > 0)
 				procesados++;
 		}
-		System.out.printf("Se procesaron %d archivo(s).", procesados);
+		System.out.printf("Se procesaron %d archivo(s).", procesados); */
 	}
 }

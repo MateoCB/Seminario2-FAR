@@ -5,76 +5,123 @@ import ar.edu.uccor.seminario1.far.interfaces.IParameters;
 public class Parameters implements IParameters {
 	
 	private String[] args;
+	private int index;
+	private String findText;
+	private String replaceText;
+	private String fileText;
+	private String pathText;
+	
+	enum PARAMETERS {
+		FIND("-find="), REPLACE("-replace="), FILETEXT("-fileText="), OVERWRITE("-overwrite"), PATH("-path="), DEFAULT_PATH("src/");
+		private String s;
+		PARAMETERS(String s) {
+			this.s = s;
+		}
+		String getParameter() {
+			return s;
+		}
+		int getIndex() {
+			return s.length();
+		}
+	}
 
 	@Override
 	public void setArgs(String[] args) {
 		this.args = args;
 	}
-
+	
 	@Override
 	public boolean isFindText() {
-		// TODO Auto-generated method stub
+		for (String a : args) {			
+			index = a.indexOf(PARAMETERS.FIND.getParameter());
+			if (index != -1) {
+				findText = a.substring(PARAMETERS.FIND.getIndex());
+				return true;
+			}
+		}
 		return false;
 	}
 
 	@Override
 	public boolean isReplaceText() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean isOverwrite() {
-		// TODO Auto-generated method stub
+		for (String a : args) {			
+			index = a.indexOf(PARAMETERS.REPLACE.getParameter());
+			if (index != -1) {
+				replaceText = a.substring(PARAMETERS.REPLACE.getIndex());
+				return true;
+			}
+		}
 		return false;
 	}
 
 	@Override
 	public boolean isNameFileTextSearch() {
-		// TODO Auto-generated method stub
+		for (String a : args) {			
+			index = a.indexOf(PARAMETERS.FILETEXT.getParameter());
+			if (index != -1) {
+				fileText = a.substring(PARAMETERS.FILETEXT.getIndex());
+				return true;
+			}
+		}
 		return false;
 	}
 
 	@Override
 	public boolean isFindPath() {
-		// TODO Auto-generated method stub
+		for (String a : args) {			
+			index = a.indexOf(PARAMETERS.PATH.getParameter());
+			if (index != -1) {
+				pathText = a.substring(PARAMETERS.PATH.getIndex());
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	@Override
+	public boolean isOverwrite() {
+		for (String a : args) {
+			if (a.contains("-overwrite")) return true;
+		}
 		return false;
 	}
 
 	@Override
 	public boolean hasParamsError() {
-		// TODO Auto-generated method stub
-		return false;
+		return !(isFindText() & isReplaceText() & isNameFileTextSearch());
 	}
 
 	@Override
 	public String getHelp() {
-		// TODO Auto-generated method stub
-		return null;
+		return "\nUSO: \n "
+				+ "\tfar -find=texto_a_buscar & -replace=texto_remplazo & -fileText=[filtro] \n"
+				+ "\tcomandos opcionales -overwrite | -path=directorio_a_usar \n"
+				+ "DONDE: \n"
+				+ "\ttexto_a_buscar = texto que se reemplazara \n"
+				+ "\ttexto_reemplazo = texto por el cual se reemplazara \n"
+				+ "\t[filtro] = filtro de archivos, se permiten los caracteres comodin * y ? \n"
+				+ "\t-overwrite = si esta presente si sobreescribe el archivo original, de otro modo se crea uno nuevo con el agregado _replaced \n"
+				+ "\tdirectorio_a_usar = directorio donde realizar el far, en caso ausente es /src de su proyecto \n\n";
 	}
 
 	@Override
 	public String getFindText() {
-		// TODO Auto-generated method stub
-		return null;
+		return findText;
 	}
 
 	@Override
 	public String getReplaceText() {
-		// TODO Auto-generated method stub
-		return null;
+		return replaceText;
 	}
 
 	@Override
 	public String getNameFileTextSearch() {
-		// TODO Auto-generated method stub
-		return null;
+		return fileText;
 	}
 
 	@Override
 	public String getFindPath() {
-		// TODO Auto-generated method stub
-		return null;
+		return (isFindPath()) ? pathText : PARAMETERS.DEFAULT_PATH.getParameter();
 	}
 
 }

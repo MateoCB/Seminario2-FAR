@@ -8,7 +8,7 @@ public interface IFilesUtils {
 	/**
 	 * 
 	 * @param paramAnalyzer
-	 * @return lista de los archivos que coincidan con el criterio de búsqueda y
+	 * @return lista de los archivos que coincidan con el criterio de busqueda y
 	 *         camino, en el caso que haya sido establecido.
 	 * @throws IOException
 	 */
