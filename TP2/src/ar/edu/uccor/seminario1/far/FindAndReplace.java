@@ -25,11 +25,6 @@ public class FindAndReplace {
 			System.out.println(paramAnalyzer.getHelp());
 			throw new ParameterException();
 		}
-		
-		System.out.println(paramAnalyzer.getFindText());
-		System.out.println(paramAnalyzer.getReplaceText());
-		System.out.println(paramAnalyzer.getNameFileTextSearch());
-		System.out.println(paramAnalyzer.getFindPath());
 	}
 
 	public boolean paramAnalysis() {
@@ -41,7 +36,7 @@ public class FindAndReplace {
 		}
 	}
 
-	public void doFindAndReplace() { /*
+	public void doFindAndReplace() { 
 		File[] listToProcess = null;
 		try {
 			listToProcess = filesUtils.getFiles(paramAnalyzer);
@@ -49,12 +44,14 @@ public class FindAndReplace {
 			System.err.println("ERROR: " + e.getMessage());
 			System.exit(-1);
 		}
+		
 		if (listToProcess.length == 0) {
 			System.out.println("No se encontraron archivos a procesar");
 			System.exit(0);
 		}
+		
 		int procesados = 0;
-		System.out.println("Inicia el proceso.");
+		System.out.println("Inicia el proceso.\n");
 		for (File f : listToProcess) {
 			System.out.printf("Abriendo %s%n", f.getAbsolutePath());
 			RespuestaEngine respuesta = null;
@@ -63,11 +60,12 @@ public class FindAndReplace {
 			} catch (IOException e) {
 				System.err.printf("ERROR: procesando %s [%s]%n", f.getAbsolutePath(), e.getMessage());
 			}
-			System.out.printf("Se encontraron y reemplazaron %d cadena(s).",
+			System.out.printf("Se encontraron y reemplazaron %d cadena(s).\n\n",
 					(respuesta != null ? respuesta.getCantidadReemplazos() : 0));
 			if (respuesta != null && respuesta.getCantidadReemplazos() > 0)
 				procesados++;
 		}
-		System.out.printf("Se procesaron %d archivo(s).", procesados); */
+		System.out.printf("Se procesaron %d archivo(s).", procesados); 
+		
 	}
 }

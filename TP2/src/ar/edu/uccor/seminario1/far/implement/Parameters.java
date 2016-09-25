@@ -94,14 +94,14 @@ public class Parameters implements IParameters {
 	@Override
 	public String getHelp() {
 		return "\nUSO: \n "
-				+ "\tfar -find=texto_a_buscar & -replace=texto_remplazo & -fileText=[filtro] \n"
+				+ "\tfar -find=texto_a_buscar & -replace=texto_remplazo & -fileText=filtro \n"
 				+ "\tcomandos opcionales -overwrite | -path=directorio_a_usar \n"
 				+ "DONDE: \n"
 				+ "\ttexto_a_buscar = texto que se reemplazara \n"
 				+ "\ttexto_reemplazo = texto por el cual se reemplazara \n"
-				+ "\t[filtro] = filtro de archivos, se permiten los caracteres comodin * y ? \n"
-				+ "\t-overwrite = si esta presente si sobreescribe el archivo original, de otro modo se crea uno nuevo con el agregado _replaced \n"
-				+ "\tdirectorio_a_usar = directorio donde realizar el far, en caso ausente es /src de su proyecto \n\n";
+				+ "\tfiltro = filtro de archivos, se permite comodin * para seleccionar todos \n"
+				+ "\t-overwrite = si esta presente se sobreescribe el archivo original, de otro modo se crea uno nuevo con el agregado _replaced al final \n"
+				+ "\tdirectorio_a_usar = directorio donde realizar el far, en caso ausente es /src por defecto \n\n";
 	}
 
 	@Override
