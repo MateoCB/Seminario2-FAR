@@ -18,43 +18,33 @@ public class EngineFAR implements IEngineFaR {
 	@Override
 	public RespuestaEngine findAndReplace(IParameters paramAnalyzer, File file) throws IOException {
 		
-		/*
-		oldFileName = file.getName();
-		oldFileNameAux = file.getName();
-		newFileName = oldFileName.replace(paramAnalyzer.getFindText(), paramAnalyzer.getReplaceText());
+		prepareFAR(paramAnalyzer, file);
 		
-		count = 0;
-		do {
-			newFileNameAux = oldFileNameAux.replaceFirst(paramAnalyzer.getFindText(), paramAnalyzer.getReplaceText());
-			if (!(newFileName.equals(oldFileName))) {
-				count++;
+		if (respuesta.getCantidadReemplazos() != 0) {
+			if (paramAnalyzer.isOverwrite()) {
+				fileAux = new File(paramAnalyzer.getFindPath() + "/" + newFileName + fileExtencion);
+				file.renameTo(fileAux);
+			} else {
+				fileAux = new File(paramAnalyzer.getFindPath() + "/" + newFileName + "_replaced" + fileExtencion);
+				fileAux.createNewFile();
 			}
-		} while (!(newFileNameAux.equals(newFileName)));
-		
-		respuesta.setCantidadReemplazos(count);
-		*/
-		
-		if (paramAnalyzer.isOverwrite()) {
-			oldFileName = file.getName();
-			int index = oldFileName.indexOf(".");
-			fileExtencion = oldFileName.substring(index);
-			oldFileName = oldFileName.substring(0, index);
-				
-			newFileName = oldFileName.replaceAll(paramAnalyzer.getFindText(), paramAnalyzer.getReplaceText());	
-			fileAux = new File(paramAnalyzer.getFindPath() + "/" + newFileName + fileExtencion);
-			file.renameTo(fileAux);
-		} else {
-			oldFileName = file.getName();
-			int index = oldFileName.indexOf(".");
-			fileExtencion = oldFileName.substring(index);
-			oldFileName = oldFileName.substring(0, index);
-				
-			newFileName = oldFileName.replaceAll(paramAnalyzer.getFindText(), paramAnalyzer.getReplaceText());	
-			fileAux = new File(paramAnalyzer.getFindPath() + "/" + newFileName + "_replaced" + fileExtencion);
-			fileAux.createNewFile();
 		}
-		
 		return respuesta;
+	}
+	
+	private void prepareFAR(IParameters paramAnalyzer, File file) {
+		oldFileName = file.getName();
+		int index = oldFileName.indexOf(".");
+		fileExtencion = oldFileName.substring(index);
+		oldFileName = oldFileName.substring(0, index);
+		newFileName = oldFileName.replaceAll(paramAnalyzer.getFindText(), paramAnalyzer.getReplaceText());
+		
+		int count = 0;
+		while(!oldFileName.equals(newFileName)) {
+			oldFileName = oldFileName.replaceFirst(paramAnalyzer.getFindText(), paramAnalyzer.getReplaceText());
+			count++;
+		}
+		respuesta.setCantidadReemplazos(count);
 	}
 
 }
